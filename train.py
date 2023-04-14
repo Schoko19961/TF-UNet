@@ -23,18 +23,19 @@ def main():
     model = Unet(img_shape=input_shape,levels=[16, 32, 64, 128])
     model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
     model.summary()
-    train = get_dataset(image_dir=TRAIN_IMAGE_DIR, mask_dir=TRAIN_MASKS_DIR, input_shape = input_shape, randomize_images=True).take(100)
-    val = get_dataset(image_dir=TRAIN_IMAGE_DIR, mask_dir=TRAIN_MASKS_DIR, input_shape = input_shape, randomize_images=False).skip(100).take(10)
+    train = get_dataset(image_dir=TRAIN_IMAGE_DIR, mask_dir=TRAIN_MASKS_DIR, input_shape = (IMG_WIDTH, IMG_HEIGHT), randomize_images=True).take(400)
+    val = get_dataset(image_dir=TRAIN_IMAGE_DIR, mask_dir=TRAIN_MASKS_DIR, input_shape = (IMG_WIDTH, IMG_HEIGHT), randomize_images=False).skip(400).take(10)
 
     
     print("train")
     model.fit(train, epochs=NUM_EPOCHS, shuffle=False)
     print("predict")
 
-    results = model.predict(val)
+    results = model.predict(val)* 255
+    results = results.astype(np.uint8)
     print("Save images")
     for index, res in enumerate(results):
-        res = np.squeeze(res)
+        res = res[:,:,0]
         res = Image.fromarray(res).convert("RGB")
         res.save(os.path.join(RES_DIR, f"res{index}.jpg"))
 
