@@ -130,3 +130,5 @@ dmypy.json
 
 *.jpg
 *.gif
+run_logs
+checkpoints

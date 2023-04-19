@@ -5,10 +5,12 @@ class DoubleConv(tf.keras.layers.Layer):
         super(DoubleConv, self).__init__()
         self.c1 = tf.keras.layers.Conv2D(filters=filters, kernel_size=(3,3), kernel_initializer="he_normal", strides=(1,1), padding="same", activation="relu")
         self.c2 = tf.keras.layers.Conv2D(filters=filters, kernel_size=(3,3), kernel_initializer="he_normal", strides=(1,1), padding="same", activation="relu")
+        self.drop = tf.keras.layers.SpatialDropout2D(rate=.1)
 
     def call(self, x):
         x = self.c1(x)
         x = self.c2(x)
+        x = self.drop(x)
         return x
     
 

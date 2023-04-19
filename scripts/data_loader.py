@@ -3,7 +3,6 @@ import os
 import numpy as np
 import tensorflow as tf
 import random
-from PIL import Image
 
 random.seed(1234)
 tf.random.set_seed(1234)
@@ -27,11 +26,8 @@ def randomize(image, mask):
     return image, mask
 
 def resize(image, mask, input_shape: Tuple[int, int]):
-    print(input_shape)
     image = tf.image.resize(image,input_shape)
-    # image = tf.image.per_image_standardization(image)
     mask = tf.image.resize(mask,input_shape)
-    # mask = tf.image.per_image_standardization(mask)
     return image / 255, mask / 255
 
 def load_images(image, mask):
@@ -55,7 +51,7 @@ def get_dataset(image_dir, mask_dir, input_shape: Tuple[int, int], randomize_ima
     if randomize_images:
         dataset = dataset.map(map_func=randomize, num_parallel_calls=tf.data.AUTOTUNE)
         
-    dataset = dataset.map(map_func=lambda image, mask: resize(image, mask, input_shape), num_parallel_calls=tf.data.AUTOTUNE).batch(10).prefetch(1)
+    dataset = dataset.map(map_func=lambda image, mask: resize(image, mask, input_shape), num_parallel_calls=tf.data.AUTOTUNE).batch(2).prefetch(1)
 
     # for index, res in enumerate(dataset.take(3)):
     #     res = res[0][0].numpy()
