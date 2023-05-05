@@ -3,6 +3,7 @@ import random
 from typing import Tuple
 
 random.seed(1234)
+tf.random.set_seed(1234)
 
 def randomize_image(image, seed: int, apply_color_changes: bool):
     image = tf.image.random_flip_left_right(image, seed=seed)

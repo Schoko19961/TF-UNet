@@ -1,4 +1,4 @@
-from data_loaders.caravan.data_loader import get_dataset
+from data_loaders.carvana.data_loader import get_dataset
 from unet.model import Unet
 import os
 import numpy as np 
@@ -12,10 +12,10 @@ IMG_WIDTH = 640
 IMG_CHANNELS = 3
 BATCH_SIZE = 2
 NUM_EPOCHS = 200000
-TRAIN_IMAGE_DIR = os.path.join(os.getcwd(),"datasets/caravan-image-segmentation/data/train/images")
-TRAIN_MASKS_DIR = os.path.join(os.getcwd(),"datasets/caravan-image-segmentation/data/train/masks")
+TRAIN_IMAGE_DIR = os.path.join(os.getcwd(),"datasets/carvana-image-segmentation/data/train/images")
+TRAIN_MASKS_DIR = os.path.join(os.getcwd(),"datasets/carvana-image-segmentation/data/train/masks")
 CHECKPOINTS_DIR = os.path.join(os.getcwd(),"checkpoints")
-RES_DIR = os.path.join(os.getcwd(),"datasets/caravan-image-segmentation/results")
+RES_DIR = os.path.join(os.getcwd(),"datasets/carvana-image-segmentation/results")
 
 def get_run_logdir(root_logdir=os.path.join(os.getcwd(),"run_logs")):
     return Path(root_logdir) / strftime("run_%Y_%m_%d_%H_%M_%S")
