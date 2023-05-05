@@ -132,3 +132,6 @@ dmypy.json
 *.gif
 run_logs
 checkpoints
+*.zip
+
+!result_demo/**

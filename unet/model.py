@@ -7,7 +7,6 @@ class Unet(tf.keras.Model):
 
         inputs = tf.keras.layers.Input(shape=img_shape)
         model = inputs
-        # model = tf.keras.layers.Normalization()(model)
 
         skip_connections = []
         for filter in levels:
